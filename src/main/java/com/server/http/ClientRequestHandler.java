@@ -1,6 +1,8 @@
 package com.server.http;
 
 import com.server.WebApplicationServer;
+import com.server.calculator.Calculator;
+import com.server.calculator.operators.PositiveNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.*;
@@ -32,11 +34,7 @@ public class ClientRequestHandler implements Runnable {
                 int operand1 = Integer.parseInt(queryStrings.getValue("operand1"));
                 String operator = queryStrings.getValue("operator");
                 int operand2 = Integer.parseInt(queryStrings.getValue("operand2"));
-
-                System.out.println(operand1);
-                System.out.println(operator);
-                System.out.println(operand2);
-                int result = operand1 + operand2;
+                int result = Calculator.calculate(new PositiveNumber(operand1),operator,new PositiveNumber(operand2));
                 byte[] body = String.valueOf(result).getBytes();
 
                 HttpResponse response = new HttpResponse(dos);
